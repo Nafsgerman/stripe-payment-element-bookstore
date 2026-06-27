@@ -1,0 +1,40 @@
+{% extends "layout.html" %}
+{% block title %}Checkout{% endblock %}
+{% block content %}
+{% if error %}
+<div class="alert alert-warning">{{ error }}. <a href="/">back to books</a>.</div>
+{% else %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        <h1 class="h5 card-title">{{ title }}</h1>
+        <p class="price h4 mb-4">{{ amount_display }}</p>
+
+        <form
+          id="payment-form"
+          data-pk="{{ publishable_key }}"
+          data-item="{{ item }}"
+          data-domain="{{ domain }}"
+        >
+          <div id="payment-element"><!-- Stripe Payment Element mounts here --></div>
+          <button id="submit" class="btn btn-primary btn-block" disabled>
+            Pay now
+          </button>
+          <div id="error-message" class="text-danger mt-3" role="alert"></div>
+        </form>
+      </div>
+    </div>
+    <p class="text-muted small mt-3 mb-0">
+      Test card 4242&nbsp;4242&nbsp;4242&nbsp;4242, any future expiry, any CVC.
+    </p>
+  </div>
+</div>
+{% endif %}
+{% endblock %}
+{% block scripts %}
+{% if not error %}
+<script src="https://js.stripe.com/v3/"></script>
+<script src="/js/checkout.js"></script>
+{% endif %}
+{% endblock %}

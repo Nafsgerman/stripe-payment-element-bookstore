@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+{% block title %}Order confirmation{% endblock %}
+{% block content %}
+<div class="row justify-content-center">
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-body">
+        {% if error %}
+        <h1 class="h5 text-danger">Couldn't load your order</h1>
+        <p class="mb-3">{{ error }}</p>
+        <a href="/" class="btn btn-outline-primary">Back to books</a>
+        {% elif paid %}
+        <h1 class="h5 text-success">Payment received ✓</h1>
+        {% if title %}<p class="mb-1">{{ title }}</p>{% endif %}
+        <p class="price h4 mb-3">{{ amount_display }}</p>
+        <p class="text-muted small mb-1">PaymentIntent</p>
+        <p class="mb-4"><code>{{ pi_id }}</code></p>
+        <a href="/" class="btn btn-outline-primary">Back to books</a>
+        {% else %}
+        <h1 class="h5">Payment {{ state }}</h1>
+        <p class="mb-3">
+          We're still confirming this payment. This page will reflect the final
+          status once it settles.
+        </p>
+        <p class="text-muted small mb-1">PaymentIntent</p>
+        <p class="mb-4"><code>{{ pi_id }}</code></p>
+        <a href="/" class="btn btn-outline-primary">Back to books</a>
+        {% endif %}
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

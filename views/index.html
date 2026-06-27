@@ -1,0 +1,22 @@
+{% extends "layout.html" %}
+{% block title %}Books{% endblock %}
+{% block content %}
+<div class="row">
+  <div class="col-12 mb-3">
+    <h1 class="h3">Available books</h1>
+  </div>
+  {% for book in books %}
+  <div class="col-md-4 mb-4">
+    <div class="card h-100">
+      <div class="card-body d-flex flex-column">
+        <h2 class="h6 card-title">{{ book.title }}</h2>
+        <p class="price h5 mt-auto mb-3">{{ format_money(book.amount) }}</p>
+        <a href="/checkout?item={{ book.id }}" class="btn btn-primary btn-block">
+          Buy
+        </a>
+      </div>
+    </div>
+  </div>
+  {% endfor %}
+</div>
+{% endblock %}
